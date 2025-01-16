@@ -11,13 +11,17 @@ function App() {
     bad: 0,
   });
 
-  const updateFeedback = (feedbackType) => {};
+  const updateFeedback = (feedbackType) => {
+    setFeedback((prevFeedback) => ({
+      ...prevFeedback,
+      [feedbackType]: prevFeedback[feedbackType] + 1,
+    }));
+  };
 
-  console.log(feedback);
   return (
     <>
       <Description />
-      <Options />
+      <Options updateFeedback={updateFeedback} feedback={feedback} />
       <Feedback feedback={feedback} />
     </>
   );
