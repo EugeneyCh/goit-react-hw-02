@@ -1,8 +1,11 @@
 import s from "./Options.module.css";
 
-const Options = ({ updateFeedback, feedback }) => {
-  // const feedbackTypes = ["good", "neutral", "bad"];
-
+const Options = ({
+  updateFeedback,
+  feedback,
+  totalFeedback,
+  resetFeedback,
+}) => {
   return (
     <div className={s.options}>
       {Object.keys(feedback).map((type) => (
@@ -10,6 +13,7 @@ const Options = ({ updateFeedback, feedback }) => {
           {type}
         </button>
       ))}
+      {totalFeedback > 0 && <button onClick={resetFeedback}>Reset</button>}
     </div>
   );
 };

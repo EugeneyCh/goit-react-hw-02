@@ -1,6 +1,7 @@
 import Description from "./components/Description/Description";
 import Feedback from "./components/Feedback/Feedback";
 import Options from "./components/Options/Options";
+import s from "./App.module.css";
 
 import { useState } from "react";
 
@@ -11,6 +12,10 @@ function App() {
     bad: 0,
   });
 
+  const totalFeedback = () => {
+    return Object.values(feedback).reduce((total, count) => total + count, 0);
+  };
+
   const updateFeedback = (feedbackType) => {
     setFeedback((prevFeedback) => ({
       ...prevFeedback,
@@ -18,12 +23,27 @@ function App() {
     }));
   };
 
+  const resetFeedback = () => {
+    setFeedback({
+      good: 0,
+      neutral: 0,
+      bad: 0,
+    });
+  };
+
   return (
-    <>
+    <div className={s.flexContainer}>
       <Description />
-      <Options updateFeedback={updateFeedback} feedback={feedback} />
-      <Feedback feedback={feedback} />
-    </>
+      <Options
+        updateFeedback={updateFeedback}
+        feedback={feedback}
+        totalFeedback={totalFeedback()}
+        resetFeedback={resetFeedback}
+      />
+      {totalFeedback() !== 0 && (
+        <Feedback feedback={feedback} totalFeedback={totalFeedback()} />
+      )}
+    </div>
   );
 }
 
